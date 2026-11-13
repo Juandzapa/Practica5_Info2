@@ -59,6 +59,7 @@ void Simulador::colisionesEntreParticulas() {
                     << "  M=" << M << "  v'=(" << vx << ", " << vy << ")\n";
             totalColisiones++;
 
+
             a.desactivar();
             b.desactivar();
             particulas.push_back(Particula(siguienteId++, x, y, vx, vy, M, r));
@@ -116,7 +117,7 @@ void Simulador::guardarPosiciones() {
     archivo << "t=" << tiempo;
     for (const Particula& p : particulas)
         if (p.estaActiva())
-            archivo << " | P" << p.getId() << " (" << p.getX() << ", " << p.getY() << ")";
+            archivo << " | P" << p.getId() << " (" << p.getX() << ", " << p.getY() << ") ";
     archivo << "\n";
 }
 
@@ -128,11 +129,11 @@ void Simulador::ejecutar(double tiempoTotal, const string& nombreArchivo) {
     }
     archivo << fixed << setprecision(3);
 
-    archivo << "=== SIMULACION DE COLISIONES MULTIPLES ===\n";
+    archivo << " SIMULACION DE COLISIONES MULTIPLES \n";
     archivo << "Caja: " << ancho << " x " << alto << "   dt = " << dt << " s\n";
     for (const Obstaculo& o : obstaculos) { o.mostrar(archivo); archivo << "\n"; }
     for (const Particula& p : particulas) { p.mostrar(archivo); archivo << "\n"; }
-    archivo << "\n--- POSICIONES Y COLISIONES ---\n";
+    archivo << "\n POSICIONES Y COLISIONES \n";
 
     guardarPosiciones();
     int pasos = (int)round(tiempoTotal / dt);
